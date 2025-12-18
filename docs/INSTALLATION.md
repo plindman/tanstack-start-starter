@@ -44,6 +44,7 @@ bunx @better-auth/cli generate
 https://www.better-auth.com/docs/integrations/tanstack
 
 
+https://ui.shadcn.com/blocks/login
 
 ## Summary of "Production Add-ons - later"
 To complete the stack, here is a shopping list of packages to install manually:
