@@ -38,6 +38,12 @@ https://www.better-auth.com/docs/installation
 bun add better-auth
 # env vars
 # lib/auth.ts
+bunx @better-auth/cli generate
+# and copy the file to lib/auth.ts
+
+https://www.better-auth.com/docs/integrations/tanstack
+
+
 
 ## Summary of "Production Add-ons - later"
 To complete the stack, here is a shopping list of packages to install manually:
