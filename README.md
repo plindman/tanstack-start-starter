@@ -1,5 +1,17 @@
 Welcome to your new TanStack app! 
 
+# Using this as a Starter Project
+
+To quickly scaffold a new project from this template, use `gitpick`:
+
+```bash
+bunx gitpick gh:plindman/tanstack-start-starter new-project-name
+cd new-project-name
+bun install
+```
+
+Then follow the setup instructions below to configure your database and authentication.
+
 # Getting Started
 
 To run this application:
