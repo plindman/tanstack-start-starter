@@ -7,8 +7,14 @@ import {
   Waves,
   Sparkles,
 } from 'lucide-react'
+import { authMiddleware } from '@/middleware/auth';
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute('/')({
+  server: {
+    middleware: [authMiddleware],
+  },
+  component: App,
+})
 
 function App() {
   const features = [

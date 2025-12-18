@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 
 import { useState } from 'react'
 import {
@@ -12,32 +12,62 @@ import {
   StickyNote,
   X,
 } from 'lucide-react'
+import { authClient } from '@/lib/auth-client';
+import { useAuth } from '@/context/AuthContext'; // Import useAuth
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [groupedExpanded, setGroupedExpanded] = useState<
     Record<string, boolean>
-  >({})
+  >({});
+  const navigate = useNavigate();
+  const { session, isLoading, refreshSession } = useAuth(); // Use auth context
+
+  const handleLogout = async () => {
+    try {
+      await authClient.auth.logout();
+      await refreshSession(); // Refresh session after logout
+      navigate({ to: '/login' });
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
     <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
+      <header className="p-4 flex items-center justify-between bg-gray-800 text-white shadow-lg">
+        <div className="flex items-center">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
+          <h1 className="ml-4 text-xl font-semibold">
+            <Link to="/">
+              <img
+                src="/tanstack-word-logo-white.svg"
+                alt="TanStack Logo"
+                className="h-10"
+              />
+            </Link>
+          </h1>
+        </div>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : session ? (
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors font-medium"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors font-medium">
+            Login
           </Link>
-        </h1>
+        )}
       </header>
 
       <aside
