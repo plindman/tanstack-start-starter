@@ -5,7 +5,8 @@ export const env = createEnv({
   server: {
     SERVER_URL: z.string().url().optional(),
     BETTER_AUTH_SECRET: z.string().min(1),
-    BETTER_AUTH_URL: z.string().url(),
+    BETTER_AUTH_URL: z.string().url().optional(),
+    DATABASE_URL: z.string().min(1),
   },
 
   /**
@@ -16,7 +17,6 @@ export const env = createEnv({
 
   client: {
     VITE_APP_TITLE: z.string().min(1).optional(),
-    VITE_AUTH_URL: z.string().url(),
   },
 
   /**
@@ -26,9 +26,7 @@ export const env = createEnv({
   runtimeEnv: {
     ...process.env,
     SERVER_URL: process.env.SERVER_URL || process.env.BETTER_AUTH_URL,
-    BETTER_AUTH_URL: process.env.SERVER_URL || process.env.BETTER_AUTH_URL,
-    VITE_APP_TITLE: import.meta.env.VITE_APP_TITLE,
-    VITE_AUTH_URL: import.meta.env.VITE_AUTH_URL || process.env.BETTER_AUTH_URL,
+    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL || process.env.SERVER_URL,
   },
 
   /**
