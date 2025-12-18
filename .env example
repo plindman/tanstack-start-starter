@@ -1,9 +1,14 @@
-# 
-BASE_URL=http://localhost:3000 # Base URL of your app
+
+# Server base url. Can server as single source of truth
+SERVER_URL=http://localhost:3000 # Base URL of your app
 
 # Database URL for SQLite
 DATABASE_URL="dev.db"
 
 # Better auth settings
 BETTER_AUTH_SECRET=
-BETTER_AUTH_URL=http://localhost:3000 # Base URL of your app
+# BETTER_AUTH_URL=http://localhost:3000 # Use this if you want another url than SERVER_URL
+
+# VITE settings
+VITE_APP_TITLE="tanstack-start-starter"
+# VITE_AUTH_URL=http://localhost:3000 # Defaults runtime to SERVER_URL
