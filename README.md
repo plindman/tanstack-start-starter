@@ -321,6 +321,46 @@ You can find out everything you need to know on how to use TanStack Store in the
 
 # Demo files
 
+## Database
+
+This project uses [Drizzle ORM](https://orm.drizzle.team/) with SQLite.
+
+### Setup
+
+Your database file is located at `data/dev.db`. Ensure your `.env.local` (or `.env`) file contains:
+
+```env
+DATABASE_URL="data/dev.db"
+```
+
+### Commands
+
+To generate new migrations after schema changes:
+
+```bash
+bun run db:generate
+```
+
+To apply pending migrations to your database:
+
+```bash
+bun run db:migrate
+```
+
+To push your schema state to the database (without migrations):
+
+```bash
+bun run db:push
+```
+
+To open Drizzle Studio for database inspection:
+
+```bash
+bun run db:studio
+```
+
+# Demo files
+
 Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
 
 # Learn More
