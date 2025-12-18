@@ -42,7 +42,7 @@ bunx @better-auth/cli generate
 # and copy the file to lib/auth.ts
 
 https://www.better-auth.com/docs/integrations/tanstack
-
+https://www.better-auth.com/docs/authentication/email-password
 
 https://ui.shadcn.com/blocks/login
 
@@ -52,3 +52,4 @@ To complete the stack, here is a shopping list of packages to install manually:
 - Email: resend, @react-email/components
 - Observability: @opentelemetry/sdk-node, pino
 - Rate Limiting (Traffic Control): @arcjet/node (or @upstash/ratelimit)
+
