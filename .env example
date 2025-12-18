@@ -3,7 +3,7 @@
 SERVER_URL=http://localhost:3000 # Base URL of your app
 
 # Database URL for SQLite
-DATABASE_URL="dev.db"
+DATABASE_URL="file:data/dev.db"
 
 # Better auth settings
 BETTER_AUTH_SECRET=
