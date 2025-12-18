@@ -46,6 +46,24 @@ https://www.better-auth.com/docs/authentication/email-password
 
 https://ui.shadcn.com/blocks/login
 
+### Route Component Co-location
+
+In file-based routing frameworks like TanStack Start, it is a common and often recommended practice to co-locate simple page components (e.g., `LoginComponent`) directly within their respective route files (e.g., `src/routes/login.tsx`). This approach offers:
+
+*   **Simplicity and Co-location:** All logic pertaining to a specific route, including data loading, error handling, and the component's rendering logic, resides in a single, easily accessible file. This reduces context switching during development.
+*   **Explicit Relationship:** It makes the tight coupling between the route's definition and its rendering component explicit.
+*   **Reduced Boilerplate:** For straightforward pages, it avoids the need for creating a separate file and additional export/import statements for a component that might only be used by that specific route.
+
+**When to consider separating the component:**
+
+While co-location is beneficial for simple pages, consider extracting the component logic to a separate file (e.g., `src/components/auth/LoginForm.tsx`) if:
+
+*   **Component Complexity Increases:** The component's logic or UI grows significantly, making the route file overly long or hard to read.
+*   **Reusability is Required:** The component (e.g., a login form) needs to be reused across different routes, embedded in modals, or utilized in other parts of the application.
+*   **Strict Separation of Concerns:** Your team adheres to a strict architectural pattern where route files are solely for routing concerns (loaders, parameters) and presentation logic resides entirely within dedicated component folders.
+
+For the current `LoginComponent` in `src/routes/login.tsx`, co-location is an idiomatic and acceptable approach given its current scope.
+
 ## Summary of "Production Add-ons - later"
 To complete the stack, here is a shopping list of packages to install manually:
 - i18n: @inlang/paraglide-js
