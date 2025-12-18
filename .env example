@@ -3,7 +3,7 @@
 SERVER_URL=http://localhost:3000 # Base URL of your app
 
 # Database URL for SQLite
-DATABASE_URL="file:data/dev.db"
+DATABASE_URL="data/dev.db"
 
 # Better auth settings
 BETTER_AUTH_SECRET=
@@ -11,4 +11,3 @@ BETTER_AUTH_SECRET=
 
 # VITE settings
 VITE_APP_TITLE="tanstack-start-starter"
-# VITE_AUTH_URL=http://localhost:3000 # Defaults runtime to SERVER_URL
