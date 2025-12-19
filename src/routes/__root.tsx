@@ -6,9 +6,6 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
-import Header from '../components/Header'
-import { AuthProvider } from '../context/AuthContext'; // Import AuthProvider
-
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
 import appCss from '../styles.css?url'
@@ -41,7 +38,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
 
-  shellComponent: AuthRootDocument,
+  shellComponent: RootDocument,
   notFoundComponent: () => (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-3xl font-bold text-gray-800">404 - Page Not Found</h1>
@@ -56,7 +53,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
         {children}
         <TanStackDevtools
           config={{
@@ -74,12 +70,4 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   )
-}
-
-function AuthRootDocument({ children }: { children: React.ReactNode }) {
-  return (
-    <AuthProvider>
-      <RootDocument>{children}</RootDocument>
-    </AuthProvider>
-  );
 }
