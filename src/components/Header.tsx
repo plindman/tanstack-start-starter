@@ -1,238 +1,55 @@
-import { Link, useNavigate } from "@tanstack/react-router";
-import {
-	ChevronDown,
-	ChevronRight,
-	Database,
-	Home,
-	Menu,
-	Network,
-	SquareFunction,
-	StickyNote,
-	X,
-} from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button"; // Import Shadcn Button
-import { useAuth } from "@/context/AuthContext";
-import { authClient } from "@/lib/auth-client";
+import { Link, useNavigate } from '@tanstack/react-router'
+import { Menu } from 'lucide-react'
+import { useState } from 'react'
+
+import { Button } from '@/components/ui/button';
+import { authClient } from '@/lib/auth-client';
 
 export default function Header() {
-	const [isOpen, setIsOpen] = useState(false);
-	const [groupedExpanded, setGroupedExpanded] = useState<
-		Record<string, boolean>
-	>({});
-	const navigate = useNavigate();
-	const { session, isLoading, refreshSession } = useAuth(); // Use auth context
+  const navigate = useNavigate();
+  const { data: session, isPending } = authClient.useSession();
 
-	const handleLogout = async () => {
-		try {
-			await authClient.signOut();
-			await refreshSession(); // Refresh session after logout
-			navigate({ to: "/login" });
-		} catch (error) {
-			console.error("Logout failed:", error);
-		}
-	};
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut();
+      navigate({ to: '/login' });
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
-	return (
-		<>
-			<header className="p-4 flex items-center justify-between bg-gray-800 text-white shadow-lg">
-				<div className="flex items-center">
-					<Button
-						variant="ghost"
-						onClick={() => setIsOpen(true)}
-						aria-label="Open menu"
-					>
-						<Menu size={24} />
-					</Button>
-					<h1 className="ml-4 text-xl font-semibold">
-						<Link to="/">
-							<img
-								src="/tanstack-word-logo-white.svg"
-								alt="TanStack Logo"
-								className="h-10"
-							/>
-						</Link>
-					</h1>
-				</div>
-				{isLoading ? (
-					<div>Loading...</div>
-				) : session ? (
-					<Button
-						variant="destructive"
-						onClick={handleLogout}
-						className="px-4 py-2 rounded-lg font-medium"
-					>
-						Logout
-					</Button>
-				) : (
-					<Link
-						to="/login"
-						className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors font-medium"
-					>
-						<Button>Login</Button>
-					</Link>
-				)}
-			</header>
-
-			<aside
-				className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
-					isOpen ? "translate-x-0" : "-translate-x-full"
-				}`}
-			>
-				<div className="flex items-center justify-between p-4 border-b border-gray-700">
-					<h2 className="text-xl font-bold">Navigation</h2>
-					<Button
-						variant="ghost"
-						onClick={() => setIsOpen(false)}
-						aria-label="Close menu"
-					>
-						<X size={24} />
-					</Button>
-				</div>
-
-				<nav className="flex-1 p-4 overflow-y-auto">
-					<Link
-						to="/"
-						onClick={() => setIsOpen(false)}
-						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-						activeProps={{
-							className:
-								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-						}}
-					>
-						<Home size={20} />
-						<span className="font-medium">Home</span>
-					</Link>
-
-					{/* Demo Links Start */}
-
-					<Link
-						to="/demo/start/server-funcs"
-						onClick={() => setIsOpen(false)}
-						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-						activeProps={{
-							className:
-								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-						}}
-					>
-						<SquareFunction size={20} />
-						<span className="font-medium">Start - Server Functions</span>
-					</Link>
-
-					<Link
-						to="/demo/start/api-request"
-						onClick={() => setIsOpen(false)}
-						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-						activeProps={{
-							className:
-								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-						}}
-					>
-						<Network size={20} />
-						<span className="font-medium">Start - API Request</span>
-					</Link>
-
-					<div className="flex flex-row justify-between">
-						<Link
-							to="/demo/start/ssr"
-							onClick={() => setIsOpen(false)}
-							className="flex-1 flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-							activeProps={{
-								className:
-									"flex-1 flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-							}}
-						>
-							<StickyNote size={20} />
-							<span className="font-medium">Start - SSR Demos</span>
-						</Link>
-						<Button
-							variant="ghost"
-							onClick={() =>
-								setGroupedExpanded((prev) => ({
-									...prev,
-									StartSSRDemo: !prev.StartSSRDemo,
-								}))
-							}
-						>
-							{groupedExpanded.StartSSRDemo ? (
-								<ChevronDown size={20} />
-							) : (
-								<ChevronRight size={20} />
-							)}
-						</Button>
-					</div>
-					{groupedExpanded.StartSSRDemo && (
-						<div className="flex flex-col ml-4">
-							<Link
-								to="/demo/start/ssr/spa-mode"
-								onClick={() => setIsOpen(false)}
-								className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-								activeProps={{
-									className:
-										"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-								}}
-							>
-								<StickyNote size={20} />
-								<span className="font-medium">SPA Mode</span>
-							</Link>
-
-							<Link
-								to="/demo/start/ssr/full-ssr"
-								onClick={() => setIsOpen(false)}
-								className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-								activeProps={{
-									className:
-										"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-								}}
-							>
-								<StickyNote size={20} />
-								<span className="font-medium">Full SSR</span>
-							</Link>
-
-							<Link
-								to="/demo/start/ssr/data-only"
-								onClick={() => setIsOpen(false)}
-								className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-								activeProps={{
-									className:
-										"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-								}}
-							>
-								<StickyNote size={20} />
-								<span className="font-medium">Data Only</span>
-							</Link>
-						</div>
-					)}
-
-					<Link
-						to="/demo/drizzle"
-						onClick={() => setIsOpen(false)}
-						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-						activeProps={{
-							className:
-								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-						}}
-					>
-						<Database size={20} />
-						<span className="font-medium">Drizzle</span>
-					</Link>
-
-					<Link
-						to="/demo/tanstack-query"
-						onClick={() => setIsOpen(false)}
-						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-						activeProps={{
-							className:
-								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-						}}
-					>
-						<Network size={20} />
-						<span className="font-medium">TanStack Query</span>
-					</Link>
-
-					{/* Demo Links End */}
-				</nav>
-			</aside>
-		</>
-	);
+  return (
+    <header className="p-4 flex items-center justify-between bg-background border-b shadow-sm">
+      <div className="flex items-center">
+        <Link to="/" className="text-xl font-bold flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground">
+            TS
+          </div>
+          <span>TanStack Starter</span>
+        </Link>
+      </div>
+      <div>
+        {isPending ? (
+          <div className="text-sm text-muted-foreground">Loading...</div>
+        ) : session ? (
+          <div className="flex items-center gap-4">
+            <span className="text-sm font-medium hidden md:block">
+              {session.user.email}
+            </span>
+            <Button
+              variant="outline"
+              onClick={handleLogout}
+              size="sm"
+            >
+              Logout
+            </Button>
+          </div>
+        ) : (
+          <Link to="/login">
+            <Button size="sm">Login</Button>
+          </Link>
+        )}
+      </div>
+    </header>
+  )
 }
