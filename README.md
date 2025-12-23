@@ -382,6 +382,14 @@ To push your schema state to the database (without migrations):
 bun run db:push
 ```
 
+### Bun Compatibility Note
+
+Note: Native `drizzle-kit push` is not fully compatible with Bun due to dependency issues with `better-sqlite3`. This project includes a custom setup:
+
+- `src/db/migrate.ts`: A custom migration script using `bun:sqlite`.
+- `db:push`: Aliased to run `db:generate` followed by `db:migrate` to ensure a smooth workflow.
+```
+
 To open Drizzle Studio for database inspection:
 
 ```bash
