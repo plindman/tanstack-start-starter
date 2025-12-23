@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowRight, LayoutDashboard, Lock } from 'lucide-react'
 import { authClient } from '@/lib/auth-client'
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_public/')({
   component: LandingPage,
 })
 
@@ -27,9 +27,9 @@ function LandingPage() {
         
         <div className="flex flex-col sm:flex-row gap-4">
           {session ? (
-            <Link to="/dashboard">
+            <Link to="/users/me">
               <Button size="lg" className="gap-2">
-                Go to Dashboard <LayoutDashboard className="w-4 h-4" />
+                Go to Profile <LayoutDashboard className="w-4 h-4" />
               </Button>
             </Link>
           ) : (
@@ -39,11 +39,6 @@ function LandingPage() {
               </Button>
             </Link>
           )}
-          <Link to="/demo">
-            <Button variant="outline" size="lg">
-              View Demo
-            </Button>
-          </Link>
         </div>
       </section>
 
@@ -56,8 +51,8 @@ function LandingPage() {
         />
         <FeatureCard 
           icon={<LayoutDashboard className="w-10 h-10 text-primary" />}
-          title="App Dashboard"
-          description="Protected application routes using the `_app` layout guard pattern. Safe and secure."
+          title="Domain Modules"
+          description="Scalable architecture with distinct Public, Auth, and Application layers."
         />
         <FeatureCard 
           icon={<ArrowRight className="w-10 h-10 text-primary" />}
@@ -65,11 +60,6 @@ function LandingPage() {
           description="Leverage the full power of TanStack Router for 100% type-safe navigation and data fetching."
         />
       </section>
-
-      {/* Footer */}
-      <footer className="py-8 text-center text-sm text-muted-foreground border-t">
-        <p>&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
-      </footer>
     </div>
   )
 }

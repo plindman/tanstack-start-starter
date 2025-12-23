@@ -41,7 +41,7 @@ function LoginComponent() {
 
 	useEffect(() => {
 		if (session) {
-			navigate({ to: "/dashboard" });
+			navigate({ to: "/users/me" });
 		}
 	}, [session, navigate]);
 
@@ -62,7 +62,7 @@ function LoginComponent() {
 			}, {
 				onSuccess: async () => {
 					setMessage("Login successful!");
-					await navigate({ to: "/dashboard" });
+					await navigate({ to: "/users/me" });
 				},
 				onError: (ctx) => {
 					setMessage(ctx.error.message || "Invalid email or password");
