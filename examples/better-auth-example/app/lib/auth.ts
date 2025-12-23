@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { twoFactor } from "better-auth/plugins";
 import Database from "better-sqlite3";
+import { tanstackStartCookies } from "better-auth/tanstack-start"; 
 
 export const auth = betterAuth({
 	database: new Database("data.db"),
@@ -19,5 +20,5 @@ export const auth = betterAuth({
 			clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
 		},
 	},
-	plugins: [twoFactor()],
+	plugins: [twoFactor(), tanstackStartCookies()],
 });
