@@ -1,4 +1,32 @@
-# How this repo was created
+# Development Notes & Creation Log
+
+> **Intent:** This document serves as a reference for the architectural choices, deviations from defaults, and development context of this starter. It is intended for developers who want to understand *how* this repo was built or why certain decisions were made.
+>
+> For instructions on how to **use** this starter, please see the [README.md](../README.md).
+
+## Key Decisions & Deviations
+
+### Database: Bun + SQLite Compatibility
+**Deviation:** We use a custom migration workflow instead of the standard `drizzle-kit push`.
+**Reason:** The default `better-sqlite3` driver required by Drizzle Kit has compatibility issues with Bun's runtime.
+**Solution:**
+- We created `src/db/migrate.ts` which uses the native `bun:sqlite` driver.
+- We aliased `db:push` in `package.json` to run `db:generate` + `bun src/db/migrate.ts`.
+- **Usage:** Always use `bun run db:push` to apply schema changes.
+
+### Authentication: Better Auth
+**Choice:** We use [Better Auth](https://www.better-auth.com/) for a comprehensive, self-hosted auth solution.
+**Context:** Pre-configured with Email/Password. `src/lib/auth.ts` is the generated configuration file.
+**Setup:** Requires `BETTER_AUTH_SECRET` in `.env.local` (generated via `openssl rand -base64 32`).
+
+### Routing strategy
+**Pattern:** Component Co-location.
+**Decision:** Simple page components (e.g., `LoginComponent`) are defined directly within their route files (e.g., `src/routes/login.tsx`) to reduce boilerplate and context switching.
+**Guideline:** Extract to `src/components/*` only when complexity increases or reusability is required.
+
+---
+
+## How this repo was created
 
 https://tanstack.com/start/latest/docs/framework/react/quick-start
 bun create @tanstack/start@latest
@@ -32,13 +60,6 @@ What was installed (The "Core")
 
 Note: It set you up with SQLite (a local file). This is great for fast development, but for production, you will likely switch better-sqlite3 to pg (Postgres) later.
 
-### Bun & Drizzle Compatibility
-The default `drizzle-kit push` command relies on `better-sqlite3`, which has compatibility issues with Bun. To fix this, we:
-1.  Created a custom migration script at `src/db/migrate.ts` using native `bun:sqlite`.
-2.  Aliased `db:push` in `package.json` to run `db:generate` followed by `bun src/db/migrate.ts`.
-3.  Ensure you run `bun run db:push` to apply changes, which now uses the Bun-compatible workflow.
-
-
 ### better-auth
 https://www.better-auth.com/docs/installation
 bun add better-auth
@@ -52,28 +73,9 @@ https://www.better-auth.com/docs/authentication/email-password
 
 https://ui.shadcn.com/blocks/login
 
-### Route Component Co-location
-
-In file-based routing frameworks like TanStack Start, it is a common and often recommended practice to co-locate simple page components (e.g., `LoginComponent`) directly within their respective route files (e.g., `src/routes/login.tsx`). This approach offers:
-
-*   **Simplicity and Co-location:** All logic pertaining to a specific route, including data loading, error handling, and the component's rendering logic, resides in a single, easily accessible file. This reduces context switching during development.
-*   **Explicit Relationship:** It makes the tight coupling between the route's definition and its rendering component explicit.
-*   **Reduced Boilerplate:** For straightforward pages, it avoids the need for creating a separate file and additional export/import statements for a component that might only be used by that specific route.
-
-**When to consider separating the component:**
-
-While co-location is beneficial for simple pages, consider extracting the component logic to a separate file (e.g., `src/components/auth/LoginForm.tsx`) if:
-
-*   **Component Complexity Increases:** The component's logic or UI grows significantly, making the route file overly long or hard to read.
-*   **Reusability is Required:** The component (e.g., a login form) needs to be reused across different routes, embedded in modals, or utilized in other parts of the application.
-*   **Strict Separation of Concerns:** Your team adheres to a strict architectural pattern where route files are solely for routing concerns (loaders, parameters) and presentation logic resides entirely within dedicated component folders.
-
-For the current `LoginComponent` in `src/routes/login.tsx`, co-location is an idiomatic and acceptable approach given its current scope.
-
 ## Summary of "Production Add-ons - later"
 To complete the stack, here is a shopping list of packages to install manually:
 - i18n: @inlang/paraglide-js
 - Email: resend, @react-email/components
 - Observability: @opentelemetry/sdk-node, pino
 - Rate Limiting (Traffic Control): @arcjet/node (or @upstash/ratelimit)
-
