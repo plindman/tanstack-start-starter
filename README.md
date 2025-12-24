@@ -17,9 +17,20 @@ Then follow the setup instructions below to configure your database and authenti
 To run this application:
 
 ```bash
-cp .env.example .env.local
+# 1. Install dependencies
 bun install
+
+# 2. Setup environment variables
+cp .env.example .env.local
+
+# 3. Generate a secret for authentication (required for better-auth)
+# Add this value to BETTER_AUTH_SECRET in your .env.local file
+openssl rand -base64 32
+
+# 4. Setup database (Generate and migrate)
 bun --bun run db:push
+
+# 5. Start the development server
 bun --bun run dev
 ```
 
