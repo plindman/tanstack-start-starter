@@ -32,6 +32,12 @@ What was installed (The "Core")
 
 Note: It set you up with SQLite (a local file). This is great for fast development, but for production, you will likely switch better-sqlite3 to pg (Postgres) later.
 
+### Bun & Drizzle Compatibility
+The default `drizzle-kit push` command relies on `better-sqlite3`, which has compatibility issues with Bun. To fix this, we:
+1.  Created a custom migration script at `src/db/migrate.ts` using native `bun:sqlite`.
+2.  Aliased `db:push` in `package.json` to run `db:generate` followed by `bun src/db/migrate.ts`.
+3.  Ensure you run `bun run db:push` to apply changes, which now uses the Bun-compatible workflow.
+
 
 ### better-auth
 https://www.better-auth.com/docs/installation
