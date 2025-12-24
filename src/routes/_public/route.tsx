@@ -1,4 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
+import Header from '@/components/Header'
+import { Footer } from '@/components/Footer'
 
 export const Route = createFileRoute('/_public')({
   component: PublicLayout,
@@ -7,21 +9,11 @@ export const Route = createFileRoute('/_public')({
 function PublicLayout() {
   return (
     <div className="flex flex-col min-h-screen">
-       {/* Placeholder for Navbar */}
-       <header className="p-4 border-b">
-        <nav className="container mx-auto flex justify-between items-center">
-          <div className="font-bold">Brand</div>
-          <div className="flex gap-4">
-             {/* Links will go here */}
-          </div>
-        </nav>
-      </header>
+      <Header />
       <main className="flex-1">
         <Outlet />
       </main>
-      <footer className="p-4 border-t text-center text-sm text-muted-foreground">
-        &copy; {new Date().getFullYear()} Brand. All rights reserved.
-      </footer>
+      <Footer />
     </div>
   )
 }
