@@ -67,6 +67,17 @@ import { Footer } from '@/components/Footer'
 ### UI Components
 Reusable UI components (Buttons, Inputs, etc.) are located in `src/components/ui` and should be used to maintain consistency.
 
+## Component Configuration
+
+Some components, like the `Footer`, are designed to be "Configuration Driven". This allows content and behavior to be modified without altering the component's source code.
+
+### Pattern: Default + Override
+- **Default Config**: `src/config/[component].default.ts` (Do not edit)
+- **User Config**: Create `src/config/[component].local.ts` (Gitignored, use for overrides)
+- **Accessor**: `src/lib/config.ts` (Components import from here)
+
+Example: To change the Footer copyright or links, create `src/config/footer.local.ts` and export a partial config.
+
 ## Adding New Routes
 1. **Public Route**: Create under `src/routes/_public` or ensure it inherits the `_public` layout.
 2. **Authenticated Route**: Create under `src/routes/_authed` to automatically inherit the Sidebar layout and auth protection.
