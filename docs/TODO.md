@@ -1,12 +1,27 @@
 # Project Roadmap & Status
 
-This checklist tracks the implementation progress of the "Battery-Included" starter.
+This document tracks the project's progress and outlines our **development workflow**.
+
+## Development Workflow
+
+### Issue Tracking
+We use **GitHub Issues** to track features and bugs.
+- **Create**: Use `gh issue create`.
+- **Link**: Reference Issue IDs (e.g., `#123`) in commits and PRs.
+
+### Issue Template
+When creating an issue, include:
+- **Description**: High-level goal.
+- **Requirements**: Functional checklist (Schema, UI, API).
+- **Technical Details**: specific libraries or implementation notes.
+
+---
 
 ## Status Checklist
 
 ### 1. Foundation & Architecture
 - [ ] Monorepo/Folder Structure: Scalable separation (e.g., apps/web, packages/ui, packages/db).
-- [ ] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement.
+- [ ] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement. [Issue #1]
 - [ ] Strict TypeScript: End-to-end type safety enabled by default.
 - [ ] Environment Management: Type-safe config loader (e.g., zod/t3-env) to fail fast on missing keys.
 
