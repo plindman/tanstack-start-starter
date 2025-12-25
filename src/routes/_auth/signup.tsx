@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link, redirect } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -34,6 +34,10 @@ const formSchema = z.object({
 });
 
 export const Route = createFileRoute('/_auth/signup')({
+  beforeLoad: () => {
+    // Disable public signup
+    throw redirect({ to: '/login' })
+  },
 	component: SignupComponent,
 });
 

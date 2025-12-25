@@ -19,6 +19,12 @@
 **Context:** Pre-configured with Email/Password. `src/lib/auth.ts` is the generated configuration file.
 **Setup:** Requires `BETTER_AUTH_SECRET` in `.env.local` (generated via `openssl rand -base64 32`).
 
+**RBAC & Admin:**
+- **Plugin:** We use the `admin` plugin to handle roles and banning.
+- **Roles:** `admin` and `user`.
+- **Security:** Public signup is disabled in the UI to prevent unauthorized access.
+- **Bootstrapping:** The first admin must be created via the `scripts/seed-admin.ts` CLI script.
+
 ### Routing strategy
 **Pattern:** Component Co-location.
 **Decision:** Simple page components (e.g., `LoginComponent`) are defined directly within their route files (e.g., `src/routes/login.tsx`) to reduce boilerplate and context switching.

@@ -8,6 +8,13 @@
       "when": 1766057130966,
       "tag": "0000_harsh_richard_fisk",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1766654289752,
+      "tag": "0001_awesome_kingpin",
+      "breakpoints": true
     }
   ]
 }

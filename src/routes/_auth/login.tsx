@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -9,7 +9,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
+	// CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
@@ -124,14 +124,14 @@ function LoginComponent() {
 					<p className="text-center text-sm text-red-500 mt-4">{message}</p>
 				)}
 			</CardContent>
-			<CardFooter className="flex justify-center">
+			{/* <CardFooter className="flex justify-center">
 				<p className="text-sm text-gray-500">
 					Don&apos;t have an account?{" "}
 					<Link to="/signup" className="text-primary hover:underline">
 						Register
 					</Link>
 				</p>
-			</CardFooter>
+			</CardFooter> */}
 		</Card>
 	)
 }

@@ -30,7 +30,11 @@ openssl rand -base64 32
 # 4. Setup database (Generate and migrate)
 bun --bun run db:push
 
-# 5. Start the development server
+# 5. Seed Admin User
+# Creates an admin account (admin@example.com / password123)
+bun run scripts/seed-admin.ts
+
+# 6. Start the development server
 bun --bun run dev
 ```
 
