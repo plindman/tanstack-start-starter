@@ -79,3 +79,28 @@ To complete the stack, here is a shopping list of packages to install manually:
 - Email: resend, @react-email/components
 - Observability: @opentelemetry/sdk-node, pino
 - Rate Limiting (Traffic Control): @arcjet/node (or @upstash/ratelimit)
+
+### Configuration Pattern (Default + Override)
+
+We use a "Default + Override" pattern for component configuration, exemplified by the `Footer` component.
+
+**Structure:**
+- `src/config/[name].default.ts`: Contains the **immutable** default configuration (Pure Data).
+- `src/lib/config.ts`: The **Accessor**. It merges the default config with any user overrides.
+- `src/config/[name].local.ts`: (Optional, gitignored) User-specific overrides.
+
+**Usage:**
+Components import from the accessor (`src/lib/config.ts`), NOT from `src/config`.
+
+**Example (Footer):**
+- **Types**: `src/types/footer.ts`
+- **Default**: `src/config/footer.default.ts`
+- **Override**: Create `src/config/footer.local.ts` to apply local changes.
+  ```typescript
+  import type { FooterConfig } from '../types/footer'
+  
+  export const footerConfig: Partial<FooterConfig> = {
+    copyright: 'My Custom Copyright'
+  }
+  ```
+
