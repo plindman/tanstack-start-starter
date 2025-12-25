@@ -122,3 +122,90 @@ Feature Flags: Boolean toggles to enable/disable features without redeploying.
 
 CI/CD & Docker: Pre-configured Dockerfile and GitHub Actions.
 
+
+## Status checklist
+
+1. Foundation & Architecture
+[ ] Monorepo/Folder Structure: Scalable separation (e.g., apps/web, packages/ui, packages/db).
+
+[ ] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement.
+
+[ ] Strict TypeScript: End-to-end type safety enabled by default.
+
+[ ] Environment Management: Type-safe config loader (e.g., zod/t3-env) to fail fast on missing keys.
+
+2. Authentication & Security
+[ ] Enterprise Auth: Support for SSO (SAML/OIDC), Email/Password, and Socials.
+
+[ ] Granular RBAC: Permissions for System Admin, Org Admin, Member, and Viewer.
+
+[ ] Impersonation Mode: Secure "View As" capability for admins to debug user issues.
+
+[ ] Software Rate Limiting: Redis-backed sliding window limiter per IP/User.
+
+[ ] Audit Logging: Immutable log of Who changed What and When.
+
+3. Navigation & Layout Strategy
+[ ] App Shell: Responsive Sidebar + Header + Content area.
+
+[ ] Top Bar (Global Context):
+
+[ ] Org/Tenant Switcher: Context dropdown.
+
+[ ] Global Search (Cmd+K): Omni-bar for navigation and data finding.
+
+[ ] Primary CTA: The single most important action (e.g., "New Project").
+
+[ ] User Menu / Hamburger (System Items):
+
+[ ] Theme Toggle: Switch Light/Dark/System.
+
+[ ] Language Switcher: Locale selection.
+
+[ ] Keyboard Shortcuts: Modal listing hotkeys.
+
+[ ] Account Settings: User profile & security.
+
+[ ] Org Settings: Billing & Team management.
+
+[ ] Support: Link to docs/help.
+
+[ ] Sign Out: Secure session termination.
+
+[ ] Footer: Minimalist design with Version (v1.x), Status Link, Copyright, and Legal Links (Privacy, Terms, DPA).
+
+4. Core UI, i18n & Accessibility
+[ ] Internationalization (i18n): Type-safe dictionaries + Locale detection middleware.
+
+[ ] Timezone Handling: Utilities configured for global timezone management (e.g., date-fns).
+
+[ ] Theme Engine: Token-based design system (CSS variables) + System preference sync (no flash).
+
+[ ] Strict A11y Compliance: Base components handling ARIA, focus trapping, and screen reader support.
+
+5. "Workhorse" Components & UX
+[ ] Advanced Data Tables: Server-side sorting, filtering, pagination, and bulk actions.
+
+[ ] Form Engine: Schema validation (Zod) + "Dirty State" warnings (unsaved changes protection).
+
+[ ] Feedback Systems: Stackable Toasts + Skeleton Loaders (perceived performance).
+
+[ ] Feature Flags: Boolean toggles to enable/disable features without redeploying.
+
+6. Backend & Infrastructure
+[ ] Transactional Email System: Provider abstraction (Resend/SES) + Code-based templates (react-email).
+
+[ ] Background Job Queue: Redis-backed queue (e.g., BullMQ) for async emails and heavy tasks.
+
+[ ] File Storage: Abstracted upload handling (S3/R2) with signed URLs.
+
+[ ] Health Checks: /health and /ready endpoints.
+
+7. Observability & Ops
+[ ] OpenTelemetry (OTel): Auto-instrumentation for tracing requests across frontend, backend, and DB.
+
+[ ] Structured Logging: JSON logs with correlation IDs.
+
+[ ] Error Reporting: Global exception capture (e.g., Sentry) with source maps.
+
+[ ] CI/CD & Docker: Pre-configured Dockerfile + GitHub Actions for testing/linting.
