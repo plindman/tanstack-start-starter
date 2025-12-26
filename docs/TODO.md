@@ -20,7 +20,7 @@ When creating an issue, include:
 ## Status Checklist
 
 ### 1. Foundation & Architecture
-- [x] Monorepo/Folder Structure: Scalable separation (e.g., apps/web, packages/ui, packages/db).
+- [x] Modular Folder Structure: Logical separation (e.g., `src/routes`, `src/components`, `src/db`).
 - [x] Granular RBAC: Permissions for System Admin, Org Admin, Member, and Viewer. [Issue #2]
 - [/] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement. [Issue #1]
 - [x] Strict TypeScript: End-to-end type safety enabled by default.

@@ -12,11 +12,12 @@ This document outlines the architectural decisions, technology stack, and design
 
 ## Global Architecture
 
-### Monorepo-Ready Structure
-The codebase is structured to support scaling into a monorepo.
-- `apps/web`: (Conceptual) Current main application.
-- `packages/ui`: (Conceptual) Shared UI components.
-- `packages/db`: (Conceptual) Database schemas and configuration.
+### Modular Architecture
+The codebase follows a modular single-package structure designed for simplicity and scalability.
+- `src/routes`: Application routes and pages (file-based routing).
+- `src/components`: Reusable UI components.
+- `src/db`: Database schema, migrations, and configuration.
+- `src/lib`: Shared utilities, helpers, and configuration accessors.
 
 ### Multi-Tenancy
 - **Strict Data Isolation**: All resource tables must include an `organization_id` to enforce tenant boundaries.
