@@ -1,20 +1,36 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { admin } from "better-auth/plugins";
-import { db } from "@/db"; // your drizzle instance
+import { admin, organization } from "better-auth/plugins";
+import * as schema from "@/db/schema"; 
+
+let db: any;
+
+if (typeof Bun !== "undefined") {
+  const dbModule = await import("@/db");
+  db = dbModule.db;
+} else {
+  // Mock for CLI/Node environment where bun:sqlite is unavailable
+  db = {
+    _: {
+        // The adapter works by checking properties on this internal object.
+        // We don't need to pass schema here because we pass it explicitly in options below.
+    },
+  };
+}
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
-        // TODO use env variable to switch
-        provider: "sqlite" //  "pg", "mysql", "sqlite"
+        provider: "sqlite",
+        schema: { ...schema }
     }),
     plugins: [
         tanstackStartCookies(), 
-        admin()
+        admin(),
+        organization()
     ],
     emailAndPassword: {
         enabled: true,
-        autoSignIn: true // useful for the seed script potentially, or just general UX
+        autoSignIn: true
     }
 });

@@ -15,6 +15,13 @@
       "when": 1766654289752,
       "tag": "0001_awesome_kingpin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1766748709354,
+      "tag": "0002_clean_kabuki",
+      "breakpoints": true
     }
   ]
 }

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "bun --bun vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -11,6 +11,7 @@
     "lint": "biome lint",
     "check": "biome check",
     "db:generate": "drizzle-kit generate",
+    "auth:generate": "bunx @better-auth/cli generate --output src/db/schema/auth.ts --yes",
     "db:migrate": "bun src/db/migrate.ts",
     "db:push": "bun run db:generate && bun run db:migrate",
     "db:pull": "drizzle-kit pull",
@@ -47,6 +48,7 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
+    "@better-auth/cli": "^1.4.9",
     "@biomejs/biome": "2.2.4",
     "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",

@@ -20,6 +20,8 @@ import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/_auth/forgot-password'
 import { Route as AuthedUsersRouteRouteImport } from './routes/_authed/users/route'
+import { Route as AuthedSelectOrgRouteRouteImport } from './routes/_authed/select-org/route'
+import { Route as AuthedOnboardingRouteRouteImport } from './routes/_authed/onboarding/route'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AuthedUsersMeRouteImport } from './routes/_authed/users/me'
 
@@ -75,6 +77,16 @@ const AuthedUsersRouteRoute = AuthedUsersRouteRouteImport.update({
   path: '/users',
   getParentRoute: () => AuthedRouteRoute,
 } as any)
+const AuthedSelectOrgRouteRoute = AuthedSelectOrgRouteRouteImport.update({
+  id: '/select-org',
+  path: '/select-org',
+  getParentRoute: () => AuthedRouteRoute,
+} as any)
+const AuthedOnboardingRouteRoute = AuthedOnboardingRouteRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthedRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -87,6 +99,8 @@ const AuthedUsersMeRoute = AuthedUsersMeRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/onboarding': typeof AuthedOnboardingRouteRoute
+  '/select-org': typeof AuthedSelectOrgRouteRoute
   '/users': typeof AuthedUsersRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
@@ -99,6 +113,8 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
+  '/onboarding': typeof AuthedOnboardingRouteRoute
+  '/select-org': typeof AuthedSelectOrgRouteRoute
   '/users': typeof AuthedUsersRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
@@ -115,6 +131,8 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_authed': typeof AuthedRouteRouteWithChildren
   '/_public': typeof PublicRouteRouteWithChildren
+  '/_authed/onboarding': typeof AuthedOnboardingRouteRoute
+  '/_authed/select-org': typeof AuthedSelectOrgRouteRoute
   '/_authed/users': typeof AuthedUsersRouteRouteWithChildren
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/login': typeof AuthLoginRoute
@@ -129,6 +147,8 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/onboarding'
+    | '/select-org'
     | '/users'
     | '/forgot-password'
     | '/login'
@@ -141,6 +161,8 @@ export interface FileRouteTypes {
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/onboarding'
+    | '/select-org'
     | '/users'
     | '/forgot-password'
     | '/login'
@@ -156,6 +178,8 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_authed'
     | '/_public'
+    | '/_authed/onboarding'
+    | '/_authed/select-org'
     | '/_authed/users'
     | '/_auth/forgot-password'
     | '/_auth/login'
@@ -254,6 +278,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedUsersRouteRouteImport
       parentRoute: typeof AuthedRouteRoute
     }
+    '/_authed/select-org': {
+      id: '/_authed/select-org'
+      path: '/select-org'
+      fullPath: '/select-org'
+      preLoaderRoute: typeof AuthedSelectOrgRouteRouteImport
+      parentRoute: typeof AuthedRouteRoute
+    }
+    '/_authed/onboarding': {
+      id: '/_authed/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthedOnboardingRouteRouteImport
+      parentRoute: typeof AuthedRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -299,10 +337,14 @@ const AuthedUsersRouteRouteWithChildren =
   AuthedUsersRouteRoute._addFileChildren(AuthedUsersRouteRouteChildren)
 
 interface AuthedRouteRouteChildren {
+  AuthedOnboardingRouteRoute: typeof AuthedOnboardingRouteRoute
+  AuthedSelectOrgRouteRoute: typeof AuthedSelectOrgRouteRoute
   AuthedUsersRouteRoute: typeof AuthedUsersRouteRouteWithChildren
 }
 
 const AuthedRouteRouteChildren: AuthedRouteRouteChildren = {
+  AuthedOnboardingRouteRoute: AuthedOnboardingRouteRoute,
+  AuthedSelectOrgRouteRoute: AuthedSelectOrgRouteRoute,
   AuthedUsersRouteRoute: AuthedUsersRouteRouteWithChildren,
 }
 

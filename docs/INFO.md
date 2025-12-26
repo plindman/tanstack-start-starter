@@ -10,8 +10,10 @@ Examples - https://github.com/TanStack/router/tree/main/examples
 
 T3Env https://env.t3.gg/docs/core
 
-Shadcn https://ui.shadcn.com/
+
+Drizzle & SQlLite - https://orm.drizzle.team/docs/get-started/sqlite-new
+https://www.better-auth.com/docs/concepts/cli
 
 https://www.better-auth.com/docs/integrations/tanstack
 
-Drizzle & SQlLite - https://orm.drizzle.team/docs/get-started/sqlite-new
+Shadcn https://ui.shadcn.com/

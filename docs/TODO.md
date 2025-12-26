@@ -23,6 +23,9 @@ When creating an issue, include:
 - [x] Modular Folder Structure: Logical separation (e.g., `src/routes`, `src/components`, `src/db`).
 - [x] Granular RBAC: Permissions for System Admin, Org Admin, Member, and Viewer. [Issue #2]
 - [/] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement. [Issue #1]
+  - [x] Schema & Middleware Enforcement
+  - [ ] System Admin Mode (Handle 'No Org' Context) [Issue #5]
+  - [ ] Org Management Dashboard (List/Create/Switch) [Issue #5]
 - [x] Strict TypeScript: End-to-end type safety enabled by default.
 - [x] Environment Management: Type-safe config loader (e.g., zod/t3-env) to fail fast on missing keys.
 
@@ -31,7 +34,7 @@ When creating an issue, include:
 - [/] Impersonation Mode: Schema support added. Secure "View As" capability for admins to debug user issues.
 
 ### 3. Navigation & Layout Strategy
-- [ ] App Shell: Responsive Sidebar + Header + Content area. [Issue #3]
+- [ ] App Shell: Responsive Top Navigation Header + Content area. [Issue #3]
 - [ ] Top Bar (Global Context):
   - [ ] Org/Tenant Switcher: Context dropdown.
   - [ ] Global Search (Cmd+K): Omni-bar for navigation and data finding.
@@ -40,7 +43,7 @@ When creating an issue, include:
     - [ ] Theme Toggle: Switch Light/Dark/System.
     - [ ] Language Switcher: Locale selection.
     - [ ] Keyboard Shortcuts: Modal listing hotkeys.
-    - [ ] Account Settings: User profile & security. [Issue #4]
+   - [ ] Account Settings: User profile & security. [Issue #4]
     - [ ] Org Settings: Billing & Team management. [Issue #4]
     - [ ] Support: Link to docs/help.
     - [ ] Sign Out: Secure session termination.

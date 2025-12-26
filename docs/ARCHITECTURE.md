@@ -5,7 +5,7 @@ This document outlines the architectural decisions, technology stack, and design
 ## 1. Tech Stack Overview
 
 - **Framework**: [TanStack Start](https://tanstack.com/start/latest) (Server-side rendering, routing, server functions)
-- **Database / ORM**: [Drizzle ORM](https://orm.drizzle.team/)
+- **Database / ORM**: [Drizzle ORM](https://orm.drizzle.team/) (using native `bun:sqlite` driver)
 - **Authentication**: [Better-Auth](https://better-auth.com/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **State Management**: [TanStack Query](https://tanstack.com/query/latest) (Server state), URL-based state (Client)

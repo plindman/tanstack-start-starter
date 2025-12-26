@@ -1,9 +1,11 @@
 import { createAuthClient } from "better-auth/react";
-// import { env } from "@/env";
+import { adminClient, organizationClient } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-   /** The base URL of the server (optional if you're using the same domain) */
-  // baseURL:  "http://localhost:3000" // env.VITE_AUTH_URL,
+  plugins: [
+    adminClient(),
+    organizationClient()
+  ]
 });
 
 /**
@@ -12,4 +14,6 @@ export const authClient = createAuthClient({
  * - signIn: Methods to sign in (e.g. .email, .social)
  * - signUp: Methods to sign up
  * - signOut: Method to sign out
+ * - organization: Methods to manage organizations
+ * - admin: Methods to manage admin tasks
  */
