@@ -22,6 +22,20 @@
       "when": 1766748709354,
       "tag": "0002_clean_kabuki",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1766933938085,
+      "tag": "0003_aspiring_red_skull",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1766935363826,
+      "tag": "0004_youthful_pepper_potts",
+      "breakpoints": true
     }
   ]
 }
