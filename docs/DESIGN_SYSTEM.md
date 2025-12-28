@@ -10,73 +10,50 @@ This application uses a modern, component-based design system built with:
 The application employs two primary layout strategies based on user authentication state.
 
 ### 1. Public Layout
-Used for landing pages, marketing content, and authentication flows.
-- **File**: `src/routes/_public/route.tsx`
-- **Structure**:
-  ```tsx
-  <div className="flex flex-col min-h-screen">
-    <Header />  {/* Common Top Navigation */}
-    <main className="flex-1">
-      <Outlet /> {/* Page Content */}
-    </main>
-    <Footer />  {/* Common Footer */}
-  </div>
-  ```
-- **Components**:
-  - `Header` (`src/components/Header.tsx`): Contains logo, navigation, and login/auth status.
-  - `Footer` (`src/components/Footer.tsx`): Contains copyright, links, and branding.
+Used for landing pages, marketing content, and authentication flows. It follows a standard vertical stack containing a top navigation bar, a flexible main content area, and a consistent footer.
 
 ### 2. Authenticated Layout
-Used for the dashboard and logged-in user experiences.
-- **File**: `src/routes/_authed/route.tsx`
-- **Structure**:
-  - **Sidebar**: Left-side navigation for domain-specific features.
-  - **Main Area**: Top bar (optional) and main content area.
-  - **Authentication**: Wraps content with session checks.
+Used for the dashboard and logged-in user experiences. It incorporates a persistent sidebar for domain-specific features and a main content area that may include an additional top bar for context-specific actions. Access is protected by session-based authentication guards.
 
 ## Styling & Theming
-- **Global Styles**: Defined in `src/styles.css`.
-- **Colors**: configuration uses CSS variables (e.g., `--primary`, `--muted`) enabling dark mode support.
-- **Typography**: Defaults to system sans-serif fonts, styled via Tailwind utility classes.
+- **Global Styles**: Centralized configuration for look and feel.
+- **Colors**: Uses semantic variables to support flexible theming and dark mode.
+- **Typography**: Employs clean, system-standard fonts optimized for readability.
 
-### Common Utility Classes
-- **Colors**: `bg-background`, `text-foreground`, `text-muted-foreground`.
-- **Spacing**: Standard Tailwind spacing (e.g., `p-4`, `m-4`, `gap-4`).
-- **Flexbox**: extensively used for layout (e.g., `flex`, `items-center`, `justify-between`).
+### Common Utility Principles
+The design relies on standard layout patterns (Flexbox, Grid) and a consistent spacing scale to ensure a cohesive and accessible user experience across all devices.
 
 ## Component Usage
 
 ### Header
-The `Header` component automatically handles the authentication state display (Login vs User Profile).
-```tsx
-import Header from '@/components/Header'
-
-// Usage
-<Header />
-```
+The Header is a persistent top navigation bar that adapts to the user's authentication state.
+- **Brand Identity**: The left side always features the application logo and name.
+- **Public State**: When logged out, a single "Login" link is provided on the right.
+- **Authenticated State**: When logged in, a Hamburger menu button is the primary interface for user-related actions.
+  - **Large Screens**: Primary navigation (such as the Dashboard) is visible in the bar. The Hamburger menu contains the user's identity (email), profile and settings links, and a placeholder for a theme toggle.
+  - **Small Screens**: Navigation links are moved into the Hamburger menu to maintain a clean layout.
+  - **Constraint**: No separate user avatar dropdown or desktop-specific menus are used; the Hamburger menu is the unified interface for all authenticated actions.
 
 ### Footer
-The `Footer` component provides consistent branding and navigation links at the bottom of public pages.
-```tsx
-import { Footer } from '@/components/Footer'
-
-// Usage
-<Footer />
-```
+The Footer is a minimalist, single-row element at the bottom of the page.
+- **Layout**: Features copyright information on the left and a flat list of secondary links (e.g., About, Legal) on the right.
+- **Logic**: The content is entirely configuration-driven, allowing for easy updates to branding and links without modifying the layout logic.
+- **Constraint**: Multi-column or complex marketing-style footers are avoided in favor of a clean, utility-focused design.
 
 ### UI Components
-Reusable UI components (Buttons, Inputs, etc.) are located in `src/components/ui` and should be used to maintain consistency.
+Reusable UI components are used throughout the application to maintain consistency and ensure accessibility standards are met.
 
 ## Component Configuration
 
-Some components, like the `Footer`, are designed to be "Configuration Driven". This allows content and behavior to be modified without altering the component's source code.
+Some components are designed to be configuration-driven, separating the content from the visual implementation. This allows behavior and links to be modified without altering the component's logic.
 
 ### Pattern: Default + Override
-- **Default Config**: `src/config/[component].default.ts` (Do not edit)
-- **User Config**: Create `src/config/[component].local.ts` (Gitignored, use for overrides)
-- **Accessor**: `src/lib/config.ts` (Components import from here)
+The system follows a strict file-based configuration pattern:
+- **Default Config**: `src/config/[component].default.ts` — Contains the global baseline settings.
+- **User Config**: `src/config/[component].local.ts` — An optional, git-ignored file used for environment or user-specific overrides.
+- **Accessor**: `src/lib/config.ts` — The central utility that merges these files, which components import from.
 
-Example: To change the Footer copyright or links, create `src/config/footer.local.ts` and export a partial config.
+Example: To change the Footer copyright or links, an override is defined in the local configuration file rather than modifying the footer component itself.
 
 ## Adding New Routes
 1. **Public Route**: Create under `src/routes/_public` or ensure it inherits the `_public` layout.
