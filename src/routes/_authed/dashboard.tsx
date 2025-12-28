@@ -1,7 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { authClient } from '@/lib/auth-client'
-import { Button } from '@/components/ui/button'
-import { Link, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_authed/dashboard')({
   component: Dashboard,
@@ -9,21 +7,9 @@ export const Route = createFileRoute('/_authed/dashboard')({
 
 function Dashboard() {
   const { data: session } = authClient.useSession()
-  const router = useRouter()
-
-  const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.invalidate()
-          window.location.href = '/'
-        },
-      },
-    })
-  }
 
   // Loading State
-  if (!session) return <div className="p-8">Loading session...</div>
+  if (!session) return <div>Loading session...</div>
 
   const { user } = session
   const activeOrgId = session.session.activeOrganizationId
@@ -31,23 +17,13 @@ function Dashboard() {
 
   // Tenant Dashboard (Assumes Authenticated + Active Org)
   return (
-    <div className="p-8 space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold">Organization Dashboard</h1>
-          <p className="text-muted-foreground">
-            Active Tenant:{' '}
-            <span className="font-semibold text-primary">{activeOrgName}</span>
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" asChild>
-            <Link to="/select-org">Switch Org</Link>
-          </Button>
-          <Button variant="ghost" onClick={handleSignOut}>
-            Sign Out
-          </Button>
-        </div>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold">Organization Dashboard</h1>
+        <p className="text-muted-foreground">
+          Active Tenant:{' '}
+          <span className="font-semibold text-primary">{activeOrgName}</span>
+        </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
