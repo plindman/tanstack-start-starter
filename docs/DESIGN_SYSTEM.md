@@ -13,7 +13,10 @@ The application employs two primary layout strategies based on user authenticati
 Used for landing pages, marketing content, and authentication flows. It follows a standard vertical stack containing a top navigation bar, a flexible main content area, and a consistent footer.
 
 ### 2. Authenticated Layout
-Used for the dashboard and logged-in user experiences. It incorporates a persistent sidebar for domain-specific features and a main content area that may include an additional top bar for context-specific actions. Access is protected by session-based authentication guards.
+Used for the dashboard and tenant-specific application experiences. It provides a focused, full-width content area. 
+- **Navigation**: Handled entirely via the Global Header (Top Nav + Hamburger).
+- **Constraint**: This layout does **not** include a sidebar. Sidebars are reserved for zone-specific internal navigation (e.g., the System Admin area).
+- **Protection**: Access is strictly managed by session-based authentication guards.
 
 ## Styling & Theming
 - **Global Styles**: Centralized configuration for look and feel.
