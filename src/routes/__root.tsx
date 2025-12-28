@@ -57,11 +57,26 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div className="flex min-h-screen flex-col font-sans antialiased">
-            <AppHeader />
-            <div className="flex-1 flex flex-col">
-                {children}
+          {/* Header Pillar: Full-bleed frame -> Centered wrapper -> AppHeader */}
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <AppHeader />
             </div>
-            <AppFooter />
+          </header>
+
+          {/* Content Pillar: Full-width main frame -> Centered wrapper -> Page content */}
+          <main className="flex-1 flex flex-col">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 w-full">
+              {children}
+            </div>
+          </main>
+
+          {/* Footer Pillar: Full-width footer frame -> Centered wrapper -> AppFooter */}
+          <footer className="border-t bg-muted/40 py-6">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <AppFooter />
+            </div>
+          </footer>
         </div>
         <TanStackDevtools
           config={{

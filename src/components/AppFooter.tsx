@@ -11,10 +11,9 @@ export function AppFooter() {
   const allLinks = footerConfig.sections.flatMap(section => section.items)
 
   return (
-    <footer className="border-t bg-muted/40 py-6">
-      <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
-        {/* Copyright info on the left */}
-        <p className="text-sm text-muted-foreground">
+    <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+      {/* Copyright info on the left */}
+      <p className="text-sm text-muted-foreground">
           {copyrightText}
         </p>
 
@@ -43,7 +42,6 @@ export function AppFooter() {
             </div>
           ))}
         </div>
-      </div>
-    </footer>
+    </div>
   )
 }

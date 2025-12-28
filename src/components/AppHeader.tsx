@@ -28,10 +28,9 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center justify-between">
-        {/* Brand Identity - Logo and App Name from config */}
-        <div className="flex items-center gap-6">
+    <div className="flex h-14 items-center justify-between">
+      {/* Brand Identity - Logo and App Name from config */}
+      <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center space-x-2 font-bold">
                 <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm">
                     {appConfig.name.slice(0, 2).toUpperCase()}
@@ -120,7 +119,6 @@ export function AppHeader() {
                 </>
             )}
         </div>
-      </div>
-    </header>
+    </div>
   )
 }
