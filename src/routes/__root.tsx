@@ -46,6 +46,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   ),
 })
 
+import { AppHeader } from '@/components/app-header'
+import { AppFooter } from '@/components/app-footer'
+
+// TODO: merge of the headers and footers from public and authed. 
+// import Header from '@/components/Header'
+// import { Footer } from '@/components/Footer'
+//      <Header />
+//      <Footer />
+
+// ... imports
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -53,7 +64,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <div className="flex min-h-screen flex-col font-sans antialiased">
+            <AppHeader />
+            <div className="flex-1 flex flex-col">
+                {children}
+            </div>
+            <AppFooter />
+        </div>
         <TanStackDevtools
           config={{
             position: 'bottom-right',

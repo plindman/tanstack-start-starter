@@ -9,22 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AccessDeniedRouteImport } from './routes/access-denied'
 import { Route as PublicRouteRouteImport } from './routes/_public/route'
 import { Route as AuthedRouteRouteImport } from './routes/_authed/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicLegalRouteImport } from './routes/_public/legal'
-import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
+import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
+import { Route as AuthedAppEntryRouteImport } from './routes/_authed/app-entry'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/_auth/forgot-password'
 import { Route as AuthedUsersRouteRouteImport } from './routes/_authed/users/route'
 import { Route as AuthedSelectOrgRouteRouteImport } from './routes/_authed/select-org/route'
-import { Route as AuthedOnboardingRouteRouteImport } from './routes/_authed/onboarding/route'
+import { Route as AuthedAdminIndexRouteImport } from './routes/_authed/admin/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AuthedUsersMeRouteImport } from './routes/_authed/users/me'
+import { Route as AuthedAdminOrganizationsIndexRouteImport } from './routes/_authed/admin/organizations/index'
+import { Route as AuthedAdminOrganizationsNewRouteImport } from './routes/_authed/admin/organizations/new'
 
+const AccessDeniedRoute = AccessDeniedRouteImport.update({
+  id: '/access-denied',
+  path: '/access-denied',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PublicRouteRoute = PublicRouteRouteImport.update({
   id: '/_public',
   getParentRoute: () => rootRouteImport,
@@ -47,15 +56,20 @@ const PublicLegalRoute = PublicLegalRouteImport.update({
   path: '/legal',
   getParentRoute: () => PublicRouteRoute,
 } as any)
-const PublicContactRoute = PublicContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => PublicRouteRoute,
-} as any)
 const PublicAboutRoute = PublicAboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => PublicRouteRoute,
+} as any)
+const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthedRouteRoute,
+} as any)
+const AuthedAppEntryRoute = AuthedAppEntryRouteImport.update({
+  id: '/app-entry',
+  path: '/app-entry',
+  getParentRoute: () => AuthedRouteRoute,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/signup',
@@ -82,9 +96,9 @@ const AuthedSelectOrgRouteRoute = AuthedSelectOrgRouteRouteImport.update({
   path: '/select-org',
   getParentRoute: () => AuthedRouteRoute,
 } as any)
-const AuthedOnboardingRouteRoute = AuthedOnboardingRouteRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
+const AuthedAdminIndexRoute = AuthedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AuthedRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -97,110 +111,154 @@ const AuthedUsersMeRoute = AuthedUsersMeRouteImport.update({
   path: '/me',
   getParentRoute: () => AuthedUsersRouteRoute,
 } as any)
+const AuthedAdminOrganizationsIndexRoute =
+  AuthedAdminOrganizationsIndexRouteImport.update({
+    id: '/admin/organizations/',
+    path: '/admin/organizations/',
+    getParentRoute: () => AuthedRouteRoute,
+  } as any)
+const AuthedAdminOrganizationsNewRoute =
+  AuthedAdminOrganizationsNewRouteImport.update({
+    id: '/admin/organizations/new',
+    path: '/admin/organizations/new',
+    getParentRoute: () => AuthedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/onboarding': typeof AuthedOnboardingRouteRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/select-org': typeof AuthedSelectOrgRouteRoute
   '/users': typeof AuthedUsersRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
+  '/app-entry': typeof AuthedAppEntryRoute
+  '/dashboard': typeof AuthedDashboardRoute
   '/about': typeof PublicAboutRoute
-  '/contact': typeof PublicContactRoute
   '/legal': typeof PublicLegalRoute
   '/': typeof PublicIndexRoute
   '/users/me': typeof AuthedUsersMeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/admin': typeof AuthedAdminIndexRoute
+  '/admin/organizations/new': typeof AuthedAdminOrganizationsNewRoute
+  '/admin/organizations': typeof AuthedAdminOrganizationsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/onboarding': typeof AuthedOnboardingRouteRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/select-org': typeof AuthedSelectOrgRouteRoute
   '/users': typeof AuthedUsersRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
+  '/app-entry': typeof AuthedAppEntryRoute
+  '/dashboard': typeof AuthedDashboardRoute
   '/about': typeof PublicAboutRoute
-  '/contact': typeof PublicContactRoute
   '/legal': typeof PublicLegalRoute
   '/': typeof PublicIndexRoute
   '/users/me': typeof AuthedUsersMeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/admin': typeof AuthedAdminIndexRoute
+  '/admin/organizations/new': typeof AuthedAdminOrganizationsNewRoute
+  '/admin/organizations': typeof AuthedAdminOrganizationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_authed': typeof AuthedRouteRouteWithChildren
   '/_public': typeof PublicRouteRouteWithChildren
-  '/_authed/onboarding': typeof AuthedOnboardingRouteRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/_authed/select-org': typeof AuthedSelectOrgRouteRoute
   '/_authed/users': typeof AuthedUsersRouteRouteWithChildren
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
+  '/_authed/app-entry': typeof AuthedAppEntryRoute
+  '/_authed/dashboard': typeof AuthedDashboardRoute
   '/_public/about': typeof PublicAboutRoute
-  '/_public/contact': typeof PublicContactRoute
   '/_public/legal': typeof PublicLegalRoute
   '/_public/': typeof PublicIndexRoute
   '/_authed/users/me': typeof AuthedUsersMeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_authed/admin/': typeof AuthedAdminIndexRoute
+  '/_authed/admin/organizations/new': typeof AuthedAdminOrganizationsNewRoute
+  '/_authed/admin/organizations/': typeof AuthedAdminOrganizationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/onboarding'
+    | '/access-denied'
     | '/select-org'
     | '/users'
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app-entry'
+    | '/dashboard'
     | '/about'
-    | '/contact'
     | '/legal'
     | '/'
     | '/users/me'
     | '/api/auth/$'
+    | '/admin'
+    | '/admin/organizations/new'
+    | '/admin/organizations'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/onboarding'
+    | '/access-denied'
     | '/select-org'
     | '/users'
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app-entry'
+    | '/dashboard'
     | '/about'
-    | '/contact'
     | '/legal'
     | '/'
     | '/users/me'
     | '/api/auth/$'
+    | '/admin'
+    | '/admin/organizations/new'
+    | '/admin/organizations'
   id:
     | '__root__'
     | '/_auth'
     | '/_authed'
     | '/_public'
-    | '/_authed/onboarding'
+    | '/access-denied'
     | '/_authed/select-org'
     | '/_authed/users'
     | '/_auth/forgot-password'
     | '/_auth/login'
     | '/_auth/signup'
+    | '/_authed/app-entry'
+    | '/_authed/dashboard'
     | '/_public/about'
-    | '/_public/contact'
     | '/_public/legal'
     | '/_public/'
     | '/_authed/users/me'
     | '/api/auth/$'
+    | '/_authed/admin/'
+    | '/_authed/admin/organizations/new'
+    | '/_authed/admin/organizations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   AuthedRouteRoute: typeof AuthedRouteRouteWithChildren
   PublicRouteRoute: typeof PublicRouteRouteWithChildren
+  AccessDeniedRoute: typeof AccessDeniedRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/access-denied': {
+      id: '/access-denied'
+      path: '/access-denied'
+      fullPath: '/access-denied'
+      preLoaderRoute: typeof AccessDeniedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_public': {
       id: '/_public'
       path: ''
@@ -236,19 +294,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicLegalRouteImport
       parentRoute: typeof PublicRouteRoute
     }
-    '/_public/contact': {
-      id: '/_public/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof PublicContactRouteImport
-      parentRoute: typeof PublicRouteRoute
-    }
     '/_public/about': {
       id: '/_public/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof PublicAboutRouteImport
       parentRoute: typeof PublicRouteRoute
+    }
+    '/_authed/dashboard': {
+      id: '/_authed/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthedDashboardRouteImport
+      parentRoute: typeof AuthedRouteRoute
+    }
+    '/_authed/app-entry': {
+      id: '/_authed/app-entry'
+      path: '/app-entry'
+      fullPath: '/app-entry'
+      preLoaderRoute: typeof AuthedAppEntryRouteImport
+      parentRoute: typeof AuthedRouteRoute
     }
     '/_auth/signup': {
       id: '/_auth/signup'
@@ -285,11 +350,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedSelectOrgRouteRouteImport
       parentRoute: typeof AuthedRouteRoute
     }
-    '/_authed/onboarding': {
-      id: '/_authed/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof AuthedOnboardingRouteRouteImport
+    '/_authed/admin/': {
+      id: '/_authed/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthedAdminIndexRouteImport
       parentRoute: typeof AuthedRouteRoute
     }
     '/api/auth/$': {
@@ -305,6 +370,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/users/me'
       preLoaderRoute: typeof AuthedUsersMeRouteImport
       parentRoute: typeof AuthedUsersRouteRoute
+    }
+    '/_authed/admin/organizations/': {
+      id: '/_authed/admin/organizations/'
+      path: '/admin/organizations'
+      fullPath: '/admin/organizations'
+      preLoaderRoute: typeof AuthedAdminOrganizationsIndexRouteImport
+      parentRoute: typeof AuthedRouteRoute
+    }
+    '/_authed/admin/organizations/new': {
+      id: '/_authed/admin/organizations/new'
+      path: '/admin/organizations/new'
+      fullPath: '/admin/organizations/new'
+      preLoaderRoute: typeof AuthedAdminOrganizationsNewRouteImport
+      parentRoute: typeof AuthedRouteRoute
     }
   }
 }
@@ -337,15 +416,23 @@ const AuthedUsersRouteRouteWithChildren =
   AuthedUsersRouteRoute._addFileChildren(AuthedUsersRouteRouteChildren)
 
 interface AuthedRouteRouteChildren {
-  AuthedOnboardingRouteRoute: typeof AuthedOnboardingRouteRoute
   AuthedSelectOrgRouteRoute: typeof AuthedSelectOrgRouteRoute
   AuthedUsersRouteRoute: typeof AuthedUsersRouteRouteWithChildren
+  AuthedAppEntryRoute: typeof AuthedAppEntryRoute
+  AuthedDashboardRoute: typeof AuthedDashboardRoute
+  AuthedAdminIndexRoute: typeof AuthedAdminIndexRoute
+  AuthedAdminOrganizationsNewRoute: typeof AuthedAdminOrganizationsNewRoute
+  AuthedAdminOrganizationsIndexRoute: typeof AuthedAdminOrganizationsIndexRoute
 }
 
 const AuthedRouteRouteChildren: AuthedRouteRouteChildren = {
-  AuthedOnboardingRouteRoute: AuthedOnboardingRouteRoute,
   AuthedSelectOrgRouteRoute: AuthedSelectOrgRouteRoute,
   AuthedUsersRouteRoute: AuthedUsersRouteRouteWithChildren,
+  AuthedAppEntryRoute: AuthedAppEntryRoute,
+  AuthedDashboardRoute: AuthedDashboardRoute,
+  AuthedAdminIndexRoute: AuthedAdminIndexRoute,
+  AuthedAdminOrganizationsNewRoute: AuthedAdminOrganizationsNewRoute,
+  AuthedAdminOrganizationsIndexRoute: AuthedAdminOrganizationsIndexRoute,
 }
 
 const AuthedRouteRouteWithChildren = AuthedRouteRoute._addFileChildren(
@@ -354,14 +441,12 @@ const AuthedRouteRouteWithChildren = AuthedRouteRoute._addFileChildren(
 
 interface PublicRouteRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
-  PublicContactRoute: typeof PublicContactRoute
   PublicLegalRoute: typeof PublicLegalRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
-  PublicContactRoute: PublicContactRoute,
   PublicLegalRoute: PublicLegalRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
@@ -374,6 +459,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   AuthedRouteRoute: AuthedRouteRouteWithChildren,
   PublicRouteRoute: PublicRouteRouteWithChildren,
+  AccessDeniedRoute: AccessDeniedRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -20,18 +20,18 @@ When creating an issue, include:
 ## Status Checklist
 
 ### 1. Foundation & Architecture
-- [x] Modular Folder Structure: Logical separation (e.g., `src/routes`, `src/components`, `src/db`).
-- [x] Granular RBAC: Permissions for System Admin, Org Admin, Member, and Viewer. [Issue #2]
-- [/] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement. [Issue #1]
-  - [x] Schema & Middleware Enforcement
-  - [ ] System Admin Mode (Handle 'No Org' Context) [Issue #5]
-  - [ ] Org Management Dashboard (List/Create/Switch) [Issue #5]
 - [x] Strict TypeScript: End-to-end type safety enabled by default.
 - [x] Environment Management: Type-safe config loader (e.g., zod/t3-env) to fail fast on missing keys.
+- [x] Modular Folder Structure: Logical separation (e.g., `src/routes`, `src/components`, `src/db`).
+- [x] Granular RBAC: Permissions for System Admin, Org Admin, Member, and Viewer. [Issue #2]
+- [x] Strict Multi-Tenancy: Data isolation via organization_id on all tables + middleware enforcement. [Issue #1]
+  - [x] Schema & Middleware Enforcement
+  - [ ] System Admin Mode (Handle 'No Org' Context) [Issue #5]
+  - [ ] Admin Org Provisioning (Create, List, Switch) [Issue #5]
 
 ### 2. Authentication & Security
 - [x] Standard Auth: Email/Password login (Default Enabled).
-- [/] Impersonation Mode: Schema support added. Secure "View As" capability for admins to debug user issues.
+- [ ] Impersonation Mode: Schema support added. Secure "View As" capability for admins to debug user issues.
 
 ### 3. Navigation & Layout Strategy
 - [ ] App Shell: Responsive Top Navigation Header + Content area. [Issue #3]
@@ -76,3 +76,4 @@ When creating an issue, include:
 - [ ] Enterprise Auth: Support for SSO (SAML/OIDC) and Social providers.
 - [ ] Software Rate Limiting: Traffic control abstraction (Candidates: [@arcjet/node](https://arcjet.com/) or [@upstash/ratelimit](https://upstash.com/)).
 - [ ] Audit Logging: Immutable log of Who changed What and When.
+- [ ] Self-Service Onboarding: Allow users to create organizations (PLG motion).

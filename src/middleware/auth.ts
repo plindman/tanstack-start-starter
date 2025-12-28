@@ -11,6 +11,11 @@ export const authMiddleware = createMiddleware().server(
 
     // Strict Multi-Tenancy Enforcement
     if (!session.session.activeOrganizationId) {
+        // EXCEPTION: System Admins can access without an active org (System Mode)
+        if (session.user.role === "admin") {
+             return await next({ context: { session } });
+        }
+
         // Fetch user's organizations
         const orgs = await auth.api.listOrganizations({ 
             headers: request.headers 

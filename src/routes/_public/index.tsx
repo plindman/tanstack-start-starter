@@ -2,17 +2,15 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArrowRight, LayoutDashboard, Lock } from 'lucide-react'
-import { authClient } from '@/lib/auth-client'
 
 export const Route = createFileRoute('/_public/')({
   component: LandingPage,
 })
 
 function LandingPage() {
-  const { data: session } = authClient.useSession()
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col flex-1 bg-background text-foreground">
       {/* Hero Section */}
       <section className="flex-1 flex flex-col items-center justify-center text-center px-4 py-24 space-y-8">
         <div className="space-y-4 max-w-3xl">
@@ -26,19 +24,11 @@ function LandingPage() {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4">
-          {session ? (
-            <Link to="/users/me">
-              <Button size="lg" className="gap-2">
-                Go to Profile <LayoutDashboard className="w-4 h-4" />
-              </Button>
-            </Link>
-          ) : (
-            <Link to="/login">
-              <Button size="lg" className="gap-2">
-                Get Started <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          )}
+          <Link to="/app-entry" preload={false}>
+            <Button size="lg" className="gap-2">
+              Get Started <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
         </div>
       </section>
 

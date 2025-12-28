@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_authed/onboarding')({
+export const Route = createFileRoute('/access-denied')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/_authed/onboarding"!</div>
+  return <div>Hello "/access-denied"!</div>
 }
