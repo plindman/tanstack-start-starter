@@ -28,6 +28,7 @@ When creating an issue, include:
   - [x] Schema & Middleware Enforcement
   - [ ] System Admin Mode (Handle 'No Org' Context) [Issue #5]
   - [ ] Admin Org Provisioning (Create, List, Switch) [Issue #5]
+  - [ ] Refine Organization Management UI/UX (Advanced tables, filtering, improved actions)
 
 ### 2. Authentication & Security
 - [x] Standard Auth: Email/Password login (Default Enabled).
