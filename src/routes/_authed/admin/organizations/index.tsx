@@ -27,7 +27,7 @@ function AdminOrgList() {
   const { data: orgs } = authClient.useListOrganizations()
 
   return (
-    <div className="p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
            <h1 className="text-3xl font-bold tracking-tight">Organizations</h1>
@@ -57,7 +57,6 @@ function AdminOrgList() {
                 <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
                         {org.name}
-                        {/* {org.metadata?.plan && <Badge variant="outline">{org.metadata.plan}</Badge>} */}
                     </div>
                 </TableCell>
                 <TableCell className="text-muted-foreground">{org.slug}</TableCell>

@@ -23,6 +23,7 @@ import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/_auth/forgot-password'
 import { Route as AuthedUsersRouteRouteImport } from './routes/_authed/users/route'
 import { Route as AuthedSelectOrgRouteRouteImport } from './routes/_authed/select-org/route'
+import { Route as AuthedAdminRouteRouteImport } from './routes/_authed/admin/route'
 import { Route as AuthedAdminIndexRouteImport } from './routes/_authed/admin/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AuthedUsersMeRouteImport } from './routes/_authed/users/me'
@@ -96,10 +97,15 @@ const AuthedSelectOrgRouteRoute = AuthedSelectOrgRouteRouteImport.update({
   path: '/select-org',
   getParentRoute: () => AuthedRouteRoute,
 } as any)
-const AuthedAdminIndexRoute = AuthedAdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
+const AuthedAdminRouteRoute = AuthedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AuthedRouteRoute,
+} as any)
+const AuthedAdminIndexRoute = AuthedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthedAdminRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -113,19 +119,20 @@ const AuthedUsersMeRoute = AuthedUsersMeRouteImport.update({
 } as any)
 const AuthedAdminOrganizationsIndexRoute =
   AuthedAdminOrganizationsIndexRouteImport.update({
-    id: '/admin/organizations/',
-    path: '/admin/organizations/',
-    getParentRoute: () => AuthedRouteRoute,
+    id: '/organizations/',
+    path: '/organizations/',
+    getParentRoute: () => AuthedAdminRouteRoute,
   } as any)
 const AuthedAdminOrganizationsNewRoute =
   AuthedAdminOrganizationsNewRouteImport.update({
-    id: '/admin/organizations/new',
-    path: '/admin/organizations/new',
-    getParentRoute: () => AuthedRouteRoute,
+    id: '/organizations/new',
+    path: '/organizations/new',
+    getParentRoute: () => AuthedAdminRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/access-denied': typeof AccessDeniedRoute
+  '/admin': typeof AuthedAdminRouteRouteWithChildren
   '/select-org': typeof AuthedSelectOrgRouteRoute
   '/users': typeof AuthedUsersRouteRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
@@ -138,7 +145,7 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/users/me': typeof AuthedUsersMeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/admin': typeof AuthedAdminIndexRoute
+  '/admin/': typeof AuthedAdminIndexRoute
   '/admin/organizations/new': typeof AuthedAdminOrganizationsNewRoute
   '/admin/organizations': typeof AuthedAdminOrganizationsIndexRoute
 }
@@ -166,6 +173,7 @@ export interface FileRoutesById {
   '/_authed': typeof AuthedRouteRouteWithChildren
   '/_public': typeof PublicRouteRouteWithChildren
   '/access-denied': typeof AccessDeniedRoute
+  '/_authed/admin': typeof AuthedAdminRouteRouteWithChildren
   '/_authed/select-org': typeof AuthedSelectOrgRouteRoute
   '/_authed/users': typeof AuthedUsersRouteRouteWithChildren
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
@@ -186,6 +194,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/access-denied'
+    | '/admin'
     | '/select-org'
     | '/users'
     | '/forgot-password'
@@ -198,7 +207,7 @@ export interface FileRouteTypes {
     | '/'
     | '/users/me'
     | '/api/auth/$'
-    | '/admin'
+    | '/admin/'
     | '/admin/organizations/new'
     | '/admin/organizations'
   fileRoutesByTo: FileRoutesByTo
@@ -225,6 +234,7 @@ export interface FileRouteTypes {
     | '/_authed'
     | '/_public'
     | '/access-denied'
+    | '/_authed/admin'
     | '/_authed/select-org'
     | '/_authed/users'
     | '/_auth/forgot-password'
@@ -350,12 +360,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedSelectOrgRouteRouteImport
       parentRoute: typeof AuthedRouteRoute
     }
-    '/_authed/admin/': {
-      id: '/_authed/admin/'
+    '/_authed/admin': {
+      id: '/_authed/admin'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AuthedAdminIndexRouteImport
+      preLoaderRoute: typeof AuthedAdminRouteRouteImport
       parentRoute: typeof AuthedRouteRoute
+    }
+    '/_authed/admin/': {
+      id: '/_authed/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthedAdminIndexRouteImport
+      parentRoute: typeof AuthedAdminRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -373,17 +390,17 @@ declare module '@tanstack/react-router' {
     }
     '/_authed/admin/organizations/': {
       id: '/_authed/admin/organizations/'
-      path: '/admin/organizations'
+      path: '/organizations'
       fullPath: '/admin/organizations'
       preLoaderRoute: typeof AuthedAdminOrganizationsIndexRouteImport
-      parentRoute: typeof AuthedRouteRoute
+      parentRoute: typeof AuthedAdminRouteRoute
     }
     '/_authed/admin/organizations/new': {
       id: '/_authed/admin/organizations/new'
-      path: '/admin/organizations/new'
+      path: '/organizations/new'
       fullPath: '/admin/organizations/new'
       preLoaderRoute: typeof AuthedAdminOrganizationsNewRouteImport
-      parentRoute: typeof AuthedRouteRoute
+      parentRoute: typeof AuthedAdminRouteRoute
     }
   }
 }
@@ -404,6 +421,21 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface AuthedAdminRouteRouteChildren {
+  AuthedAdminIndexRoute: typeof AuthedAdminIndexRoute
+  AuthedAdminOrganizationsNewRoute: typeof AuthedAdminOrganizationsNewRoute
+  AuthedAdminOrganizationsIndexRoute: typeof AuthedAdminOrganizationsIndexRoute
+}
+
+const AuthedAdminRouteRouteChildren: AuthedAdminRouteRouteChildren = {
+  AuthedAdminIndexRoute: AuthedAdminIndexRoute,
+  AuthedAdminOrganizationsNewRoute: AuthedAdminOrganizationsNewRoute,
+  AuthedAdminOrganizationsIndexRoute: AuthedAdminOrganizationsIndexRoute,
+}
+
+const AuthedAdminRouteRouteWithChildren =
+  AuthedAdminRouteRoute._addFileChildren(AuthedAdminRouteRouteChildren)
+
 interface AuthedUsersRouteRouteChildren {
   AuthedUsersMeRoute: typeof AuthedUsersMeRoute
 }
@@ -416,23 +448,19 @@ const AuthedUsersRouteRouteWithChildren =
   AuthedUsersRouteRoute._addFileChildren(AuthedUsersRouteRouteChildren)
 
 interface AuthedRouteRouteChildren {
+  AuthedAdminRouteRoute: typeof AuthedAdminRouteRouteWithChildren
   AuthedSelectOrgRouteRoute: typeof AuthedSelectOrgRouteRoute
   AuthedUsersRouteRoute: typeof AuthedUsersRouteRouteWithChildren
   AuthedAppEntryRoute: typeof AuthedAppEntryRoute
   AuthedDashboardRoute: typeof AuthedDashboardRoute
-  AuthedAdminIndexRoute: typeof AuthedAdminIndexRoute
-  AuthedAdminOrganizationsNewRoute: typeof AuthedAdminOrganizationsNewRoute
-  AuthedAdminOrganizationsIndexRoute: typeof AuthedAdminOrganizationsIndexRoute
 }
 
 const AuthedRouteRouteChildren: AuthedRouteRouteChildren = {
+  AuthedAdminRouteRoute: AuthedAdminRouteRouteWithChildren,
   AuthedSelectOrgRouteRoute: AuthedSelectOrgRouteRoute,
   AuthedUsersRouteRoute: AuthedUsersRouteRouteWithChildren,
   AuthedAppEntryRoute: AuthedAppEntryRoute,
   AuthedDashboardRoute: AuthedDashboardRoute,
-  AuthedAdminIndexRoute: AuthedAdminIndexRoute,
-  AuthedAdminOrganizationsNewRoute: AuthedAdminOrganizationsNewRoute,
-  AuthedAdminOrganizationsIndexRoute: AuthedAdminOrganizationsIndexRoute,
 }
 
 const AuthedRouteRouteWithChildren = AuthedRouteRoute._addFileChildren(

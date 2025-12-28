@@ -17,7 +17,7 @@ function AdminDashboard() {
   const { user } = session
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       <div>
         <h1 className="text-2xl font-bold">System Administration</h1>
         <p className="text-muted-foreground">Welcome, {user.name}. You are in Global System Mode.</p>

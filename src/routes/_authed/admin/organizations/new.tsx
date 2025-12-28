@@ -39,9 +39,9 @@ function CreateOrganization() {
   }
 
   return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+      <div className="p-6 flex items-center justify-center min-h-[calc(100vh-200px)]">
           <div className="w-full max-w-md space-y-6 rounded-lg border bg-card p-6 shadow-sm">
-            
+
             <div className="space-y-2 text-center">
                 <h1 className="text-2xl font-bold">Create Organization</h1>
                 <p className="text-sm text-muted-foreground">Provision a new tenant environment.</p>
