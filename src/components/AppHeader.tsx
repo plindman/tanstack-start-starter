@@ -76,6 +76,18 @@ export function AppHeader() {
                             </DropdownMenuItem>
 
                             {/* User Actions */}
+                            {session.session.activeOrganizationId && (
+                                <>
+                                    <DropdownMenuLabel>
+                                        <div className="flex flex-col space-y-1">
+                                            <p className="text-xs font-semibold text-foreground">
+                                                {(session as any).activeOrganization?.name || 'Organization'}
+                                            </p>
+                                        </div>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                </>
+                            )}
                             <DropdownMenuItem asChild>
                                 <Link to="/users/me" className="cursor-pointer">
                                     <UserIcon className="mr-2 h-4 w-4" />

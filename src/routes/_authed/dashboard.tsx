@@ -12,26 +12,16 @@ function Dashboard() {
   if (!session) return <div>Loading session...</div>
 
   const { user } = session
-  const activeOrgId = session.session.activeOrganizationId
-  const activeOrgName = (session as any).activeOrganization?.name
 
-  // Tenant Dashboard (Assumes Authenticated + Active Org)
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Organization Dashboard</h1>
-        <p className="text-muted-foreground">
-          Active Tenant:{' '}
-          <span className="font-semibold text-primary">{activeOrgName}</span>
-        </p>
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <p className="text-muted-foreground">Welcome, {user.name}.</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <div className="p-6 border rounded-lg bg-card">
-          <h3 className="font-semibold">Members</h3>
-          <p className="text-sm text-muted-foreground">Manage team members</p>
-        </div>
-        {/* Add more widgets here */}
+      <div className="text-sm text-muted-foreground">
+        This is your workspace. Use the navigation menu to access features.
       </div>
     </div>
   )
