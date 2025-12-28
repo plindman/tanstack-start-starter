@@ -46,16 +46,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   ),
 })
 
-import { AppHeader } from '@/components/app-header'
-import { AppFooter } from '@/components/app-footer'
-
-// TODO: merge of the headers and footers from public and authed. 
-// import Header from '@/components/Header'
-// import { Footer } from '@/components/Footer'
-//      <Header />
-//      <Footer />
-
-// ... imports
+import { AppHeader } from '@/components/AppHeader'
+import { AppFooter } from '@/components/AppFooter'
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
