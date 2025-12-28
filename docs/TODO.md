@@ -23,7 +23,7 @@ When creating an issue, include:
 - [x] Strict TypeScript & Environment Management.
 - [x] Multi-Tenancy & Data Isolation Core. [Issue #1]
 - [x] Authentication & RBAC Foundation. [Issue #2]
-- [ ] **Standardized Layout Foundations**: Define and implement global container constraints (max-width capping) and horizontal alignment across all views. **(Issue Missing)**
+- [ ] **Standardized Layout Foundations**: Define and implement global container constraints (max-width capping) and horizontal alignment across all views. [Issue #7]
 - [ ] **Header & Footer [Issue #3]**: Refined and configuration-driven navigation components (Review pending).
 - [ ] **Tenant Dashboard MVP**: Basic functional workspace for organization members.
 - [ ] **System Admin Dashboard MVP**: Basic functional entry point for platform management.
