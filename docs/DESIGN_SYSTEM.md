@@ -43,6 +43,14 @@ The Footer is a minimalist, single-row element at the bottom of the page.
 - **Logic**: The content is entirely configuration-driven, allowing for easy updates to branding and links without modifying the layout logic.
 - **Constraint**: Multi-column or complex marketing-style footers are avoided in favor of a clean, utility-focused design.
 
+### Content Containers
+The application utilizes a standardized containment strategy to ensure visual focus and prevent layout distortion on large displays.
+- **Horizontal Centering**: All main page content must be horizontally centered within the viewport.
+- **Maximum Width**: A consistent maximum width (e.g., `1280px` / `max-w-7xl`) is enforced for all content areas.
+- **Visual Baseline**: The left edge of all page content must align vertically with the application logo in the header.
+- **Encapsulation**: These layout rules are encapsulated within a dedicated **`AppContainer`** component. This component serves as the single source of truth for the application's width and alignment logic.
+- **Constraint**: **Do not use Tailwind's built-in `.container` class**, as its behavior is inconsistent across breakpoints. Always use the `AppContainer` component for containment.
+
 ### UI Components
 Reusable UI components are used throughout the application to maintain consistency and ensure accessibility standards are met.
 
@@ -65,4 +73,4 @@ Example: To change the Footer copyright or links, an override is defined in the 
 
 ## Adding New Routes
 1. **Public Route**: Create under `src/routes/_public` or ensure it inherits the `_public` layout.
-2. **Authenticated Route**: Create under `src/routes/_authed` to automatically inherit the Sidebar layout and auth protection.
+2. **Authenticated Route**: Create under `src/routes/_authed` to automatically inherit the protected authenticated shell (Sidebar-free).

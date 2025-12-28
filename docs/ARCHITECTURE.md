@@ -98,10 +98,11 @@ The Navigation Dispatcher routes users based on organization membership:
 ## 6. Navigation & Layouts
 
 - **Single Global Shell**: The entire application (Public, Authed, Admin) shares a common **Header** and **Footer** via `src/routes/__root.tsx`.
-- **Admin Layout**: The System Admin area (`/admin`) may implement its own internal sidebar for resource management, but this is content-level, not shell-level.
+- **Tenant Layout**: The User/Tenant Dashboard is a clean, **sidebar-free** content area. All primary navigation is handled via the Global Header.
+- **Admin Layout**: The System Admin area (`/admin`) implements its own internal sidebar for resource management. This is content-level isolation, not shell-level.
+- **Encapsulated Layout Strategy**: All application views utilize a standardized **AppContainer** component to ensure consistent width capping, horizontal centering, and vertical alignment across all breakpoints.
 - **Navigation Elements**:
-  - **User Menu**: Profile, Settings, Theme, and Sign Out.
-  - **Tenant List**: A simple way to switch organizations (e.g., via `/select-org` or a menu item).
+  - **User Menu**: Profile, Settings, Theme, and Sign Out (Unified in a persistent Hamburger menu).
 
 ## 7. Backend & Infrastructure
 
