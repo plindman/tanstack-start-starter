@@ -46,6 +46,11 @@ The Footer is a minimalist, single-row element at the bottom of the page.
 ### UI Components
 Reusable UI components are used throughout the application to maintain consistency and ensure accessibility standards are met.
 
+## File Naming Conventions
+To maintain a clear distinction between internal project logic and external or foundational components, the following naming conventions are applied:
+- **Application-Specific Components**: Use **PascalCase** (e.g., `AppHeader.tsx`, `AppFooter.tsx`). This identifies project-level components that embody application business logic or specific shell structures.
+- **UI Primitives / Library Components**: Use **kebab-case** (e.g., `button.tsx`, `dropdown-menu.tsx`). This follows the standard convention for shadcn/ui and other shared utility components.
+
 ## Component Configuration
 
 Some components are designed to be configuration-driven, separating the content from the visual implementation. This allows behavior and links to be modified without altering the component's logic.
